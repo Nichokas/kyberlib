@@ -24,13 +24,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      # Setup Rust nightly
+      # Setup Rust nightly    
       - name: Install Rust
-        uses: actions-rs/toolchain@v1
-        id: toolchain
+        uses: hecrj/setup-rust-action@v1
         with:
-          toolchain: nightly
-          override: true
+          rust-version: nightly
 
       # Configure cache for Cargo
       - name: Cache Cargo registry, index
@@ -45,10 +43,7 @@ jobs:
 
       # Run tests with all features
       - name: Test (cargo test)
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: "--workspace"
+        run: cargo test --workspace
 
       # Install grcov
       - name: Install grcov
